@@ -159,7 +159,12 @@
         .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; margin-top: 40px; }
         .stat-card { background: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: 12px; padding: 25px; text-align: left; display: flex; align-items: center; gap: 20px; box-shadow: var(--card-shadow); }
         .stat-card .icon { font-size: 2.5rem; color: var(--accent-secondary); }
-        .stat-card h3 { font-size: 2.5rem; font-weight: 700; margin: 0; color: var(--text-primary); }
+        .stat-card-content { min-width: 0; /* Prevents flex item from overflowing */ }
+        .stat-card h3 { 
+            font-size: 2.5rem; font-weight: 700; margin: 0; color: var(--text-primary); 
+            overflow-wrap: break-word; /* Allows long numbers to wrap */
+            word-break: break-word; /* Fallback */
+        }
         .stat-card p { font-size: 1.1rem; color: var(--text-secondary); margin: 0; line-height: 1.2; }
 
         /* --- Other Section Styles --- */
@@ -205,10 +210,42 @@
         .footer-bottom { text-align: center; border-top: 1px solid var(--border-color); padding-top: 30px; font-size: 0.9em; }
         
         /* --- Responsive --- */
-        @media (max-width: 992px) { .about-grid, .hub-grid, .resource-grid { grid-template-columns: 1fr; } .section { padding: 40px 30px; } }
+        @media (max-width: 992px) { 
+            .about-grid, .hub-grid, .resource-grid { grid-template-columns: 1fr; } 
+            .section { padding: 40px 30px; } 
+        }
+
+        /* --- IMPROVED MOBILE VIEW --- */
         @media (max-width: 768px) {
-            .section { padding: 40px 15px; } .hero-content { padding-left: 0; padding-right: 0; }
-            .main-content-wrapper { margin: 10px; border-radius: 12px; }
+            /* 1. Edge-to-Edge Layout & Consistent Padding */
+            .main-content-wrapper {
+                margin: 0;
+                border-radius: 0;
+                box-shadow: none;
+            }
+            .section {
+                padding: 50px 20px; /* Standardized mobile padding */
+            }
+            .container {
+                padding: 0; /* Let sections handle padding */
+            }
+
+            /* 2. Typography Adjustments for Readability */
+            h1 { font-size: 2.2rem; }
+            h2 { font-size: 1.8rem; margin-bottom: 30px; }
+            h3 { font-size: 1.5rem; }
+            .hero p { font-size: 1.1rem; }
+            .hero-content { padding: 40px 20px; } /* Ensure hero content has padding */
+
+            /* 3. Force Grids to Single Column */
+            .about-grid, .grid-2, .grid-3 {
+                grid-template-columns: 1fr;
+            }
+            .team-member .role {
+                min-height: auto; /* Not needed in single column layout */
+            }
+
+            /* 4. Mobile Navigation System */
             .mobile-nav-overlay {
                 position: fixed; top: 0; left: 0; width: 100%; height: 100%;
                 background: rgba(0,0,0,0.5); z-index: 998;
@@ -217,14 +254,20 @@
             .mobile-nav-overlay.active { opacity: 1; visibility: visible; }
             .nav-links { 
                 position: fixed; top: 0; right: -100%; width: 80%; max-width: 300px; height: 100vh;
-                flex-direction: column; align-items: center; justify-content: center; gap: 40px; 
+                flex-direction: column; align-items: center; justify-content: center; gap: 30px; 
                 background-color: var(--bg-primary); 
                 box-shadow: -5px 0 15px rgba(0,0,0,0.1);
                 transition: right 0.4s cubic-bezier(0.77, 0, 0.175, 1);
                 z-index: 999;
             }
-            .nav-links.active { right: 0; } .nav-links a { font-size: 1.2rem; } .hamburger { display: block; }
-            .footer-grid { text-align: center; } .social-links { justify-content: center; }
+            .nav-links.active { right: 0; } 
+            .nav-links a { font-size: 1.3rem; } /* Larger tap targets */
+            .hamburger { display: block; }
+
+            /* 5. Footer & Form Adjustments */
+            .registration-form { padding: 30px 20px; }
+            .footer-grid { text-align: center; } 
+            .social-links { justify-content: center; }
         }
     </style>
 </head>
@@ -269,15 +312,24 @@
                     <div class="stats-grid">
                         <div class="stat-card">
                             <i class="fa-solid fa-hospital icon"></i>
-                            <div><h3 data-counter="25">0</h3><p>AIIMS &amp; INIs</p></div>
+                            <div class="stat-card-content">
+                                <h3 data-counter="25">0</h3>
+                                <p>AIIMS &amp; INIs</p>
+                            </div>
                         </div>
                         <div class="stat-card">
                             <i class="fa-solid fa-user-doctor icon"></i>
-                            <div><h3 data-counter="10000">0</h3><p>Resident Doctors</p></div>
+                            <div class="stat-card-content">
+                                <h3 data-counter="10000">0</h3>
+                                <p>Resident Doctors</p>
+                            </div>
                         </div>
                         <div class="stat-card">
                             <i class="fa-solid fa-heart-pulse icon"></i>
-                            <div><h3 data-counter="100000000">0</h3><p>Lives Touched</p></div>
+                            <div class="stat-card-content">
+                                <h3 data-counter="100000000">0</h3>
+                                <p>Lives Touched</p>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -345,9 +397,9 @@
                     <h2 class="animate-on-scroll">Our Network</h2>
                     <p class="section-intro animate-on-scroll" style="transition-delay: 0.1s;">Connecting excellence across India's premier medical institutions, fostering collaboration and elevating standards of medical education.</p>
                     <div class="stats-grid">
-                        <div class="stat-card animate-on-scroll" style="transition-delay: 0.2s;"><i class="fa-solid fa-hospital icon"></i><div><h3 data-counter="25">0</h3><p>AIIMS &amp; INIs</p></div></div>
-                        <div class="stat-card animate-on-scroll" style="transition-delay: 0.3s;"><i class="fa-solid fa-user-doctor icon"></i><div><h3 data-counter="10000">0</h3><p>Resident Doctors</p></div></div>
-                        <div class="stat-card animate-on-scroll" style="transition-delay: 0.4s;"><i class="fa-solid fa-heart-pulse icon"></i><div><h3 data-counter="100000000">0</h3><p>Lives Touched</p></div></div>
+                        <div class="stat-card animate-on-scroll" style="transition-delay: 0.2s;"><i class="fa-solid fa-hospital icon"></i><div class="stat-card-content"><h3 data-counter="25">0</h3><p>AIIMS &amp; INIs</p></div></div>
+                        <div class="stat-card animate-on-scroll" style="transition-delay: 0.3s;"><i class="fa-solid fa-user-doctor icon"></i><div class="stat-card-content"><h3 data-counter="10000">0</h3><p>Resident Doctors</p></div></div>
+                        <div class="stat-card animate-on-scroll" style="transition-delay: 0.4s;"><i class="fa-solid fa-heart-pulse icon"></i><div class="stat-card-content"><h3 data-counter="100000000">0</h3><p>Lives Touched</p></div></div>
                     </div>
                     <div class="network-grid">
                         <div class="card network-institution animate-on-scroll" style="transition-delay: 0.1s;"><h4>AIIMS New Delhi</h4><p>New Delhi</p><p class="tagline">Premier Medical Institute</p><div class="inst-stats"><span><i class="fa-solid fa-calendar-alt icon"></i> 1956</span><span><i class="fa-solid fa-users icon"></i> 2,500+</span></div></div>
@@ -600,7 +652,8 @@
         const registrationForm = document.getElementById('registrationForm');
         registrationForm.addEventListener('submit', (e) => {
             e.preventDefault();
-            const scriptURL = 'YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL'; // <-- IMPORTANT: REPLACE THIS
+            // IMPORTANT: Replace this placeholder with your actual Google Apps Script URL
+            const scriptURL = 'YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL'; 
              if(scriptURL === 'YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL') {
                  alert('Thank you! (Demo) Your registration has been submitted successfully.');
                  registrationForm.reset();
@@ -609,7 +662,8 @@
             // Real fetch logic would go here...
         });
         
-        const isUserLoggedIn = false; // Mock logic: CHANGE THIS TO `true` TO TEST THE PROTECTED VIEW
+        // Mock logic for Resident Hub. Replace with your actual authentication check.
+        const isUserLoggedIn = false; // CHANGE THIS TO `true` TO TEST THE PROTECTED VIEW
         document.getElementById('hub-content-unlocked').style.display = isUserLoggedIn ? 'block' : 'none';
         document.getElementById('hub-content-lock').style.display = isUserLoggedIn ? 'none' : 'block';
     });

@@ -27,6 +27,8 @@
             --card-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
             --header-bg: rgba(255, 255, 255, 0.8);
             --glow-color: rgba(0, 123, 255, 0.1);
+            --scrollbar-thumb: #ced4da;
+            --scrollbar-track: transparent;
         }
 
         [data-theme="dark"] {
@@ -41,16 +43,14 @@
             --card-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.2), 0 4px 6px -4px rgba(0, 0, 0, 0.2);
             --header-bg: rgba(15, 23, 42, 0.8);
             --glow-color: rgba(96, 165, 250, 0.15);
+            --scrollbar-thumb: #4a5568;
+            --scrollbar-track: transparent;
         }
         
         /* --- Animations --- */
         @keyframes fadeInUp {
             from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
-        }
-        @keyframes backgroundZoom {
-            from { transform: scale(1.1); }
-            to { transform: scale(1); }
         }
         .animate-on-scroll {
             opacity: 0;
@@ -72,20 +72,20 @@
             line-height: 1.7;
             transition: background-color 0.4s, color 0.4s;
         }
-        .container { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
         h1, h2, h3, h4 { line-height: 1.3; font-weight: 700; color: var(--text-primary); }
         h1 { font-size: clamp(2.5rem, 5vw, 3.8rem); }
         h2 { font-size: clamp(2rem, 4vw, 2.75rem); color: var(--accent-primary); text-align: center; margin-bottom: 50px; }
         h3 { font-size: 1.75rem; margin-bottom: 20px; }
         h4 { font-size: 1.25rem; color: var(--accent-primary); margin-bottom: 8px; }
         p { margin-bottom: 1rem; color: var(--text-secondary); }
-        .section { padding: 80px 50px; overflow: hidden; border-bottom: 1px solid var(--border-color); }
+        .section { padding: 80px 0; overflow: hidden; }
         .section:last-of-type { border-bottom: none; }
         .section-intro { text-align: center; max-width: 700px; margin: -30px auto 50px auto; color: var(--text-secondary); }
         
         /* --- Main Page Container --- */
         .main-content-wrapper {
-            max-width: 1200px;
+            max-width: 1300px; /* Wider for gallery */
             margin: 30px auto;
             background-color: var(--bg-primary);
             border-radius: 16px;
@@ -120,19 +120,6 @@
         #theme-toggle:hover { color: var(--accent-primary); }
         .hamburger { display: none; font-size: 1.8rem; cursor: pointer; z-index: 1002; transition: transform 0.3s ease; }
 
-        /* --- General Card & Grid Styles --- */
-        .card { 
-            background: var(--bg-secondary); padding: 25px; border-radius: 12px; 
-            border: 1px solid var(--border-color); box-shadow: var(--card-shadow); 
-            transition: transform 0.3s ease, box-shadow 0.3s ease; 
-        }
-        .card:hover { 
-            transform: translateY(-8px); 
-            box-shadow: 0 10px 20px -5px var(--glow-color), 0 4px 6px -2px rgba(0,0,0,0.05); 
-        }
-        .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
-        .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 30px; justify-content: center;}
-
         /* --- Footer --- */
         footer { background-color: var(--bg-secondary); padding: 60px 0 30px 0; border-top: 1px solid var(--border-color); }
         .footer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 40px; margin-bottom: 40px; }
@@ -141,17 +128,12 @@
         .footer-bottom { text-align: center; border-top: 1px solid var(--border-color); padding-top: 30px; font-size: 0.9em; }
         
         /* --- Responsive --- */
-        @media (max-width: 992px) { 
-            .section { padding: 40px 30px; } 
-        }
-
         @media (max-width: 768px) {
             .main-content-wrapper { margin: 0; border-radius: 0; box-shadow: none; }
-            .section { padding: 50px 20px; }
-            .container { padding: 0; }
+            .section { padding: 50px 0; }
+            .container { padding: 0 15px; }
             h2 { font-size: 1.8rem; margin-bottom: 30px; }
-            h3 { font-size: 1.5rem; }
-            .grid-2, .grid-3 { grid-template-columns: 1fr; }
+            h3 { font-size: 1.5rem; padding: 0 15px; }
             .mobile-nav-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 998; opacity: 0; visibility: hidden; transition: opacity 0.4s, visibility 0.4s; }
             .mobile-nav-overlay.active { opacity: 1; visibility: visible; }
             .nav-links { position: fixed; top: 0; right: -100%; width: 80%; max-width: 300px; height: 100vh; flex-direction: column; align-items: center; justify-content: center; gap: 30px; background-color: var(--bg-primary); box-shadow: -5px 0 15px rgba(0,0,0,0.1); transition: right 0.4s cubic-bezier(0.77, 0, 0.175, 1); z-index: 999; }
@@ -162,35 +144,89 @@
             .social-links { justify-content: center; }
         }
 
-        /* --- NEW STYLES FOR GALLERY PAGE --- */
+        /* --- NEW SCROLLABLE GALLERY STYLES --- */
+        .gallery-page {
+            padding-top: 60px;
+        }
+        .gallery-category {
+            margin-bottom: 60px; /* Space between each category row */
+        }
+        .gallery-category h3 {
+            font-size: 1.7rem;
+            margin-bottom: 25px;
+            padding-left: 20px; /* Align with container padding */
+            font-weight: 600;
+        }
+        .scrollable-gallery-wrapper {
+            position: relative;
+        }
+        .scrollable-gallery-row {
+            display: flex;
+            gap: 20px;
+            overflow-x: auto;
+            padding: 10px 20px; /* Padding for items and scrollbar space */
+            scroll-snap-type: x mandatory; /* Smooth snapping effect */
+            -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+        }
+        /* Custom Scrollbar */
+        .scrollable-gallery-row::-webkit-scrollbar {
+            height: 8px;
+        }
+        .scrollable-gallery-row::-webkit-scrollbar-track {
+            background: var(--scrollbar-track);
+        }
+        .scrollable-gallery-row::-webkit-scrollbar-thumb {
+            background-color: var(--scrollbar-thumb);
+            border-radius: 10px;
+            border: 2px solid var(--bg-primary); /* Padding around thumb */
+        }
+
+        /* Gradient fade-out to indicate more content */
+        .scrollable-gallery-wrapper::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            width: 80px;
+            background: linear-gradient(to right, transparent, var(--bg-primary));
+            pointer-events: none; /* Allows clicking through the gradient */
+            transition: background 0.4s;
+        }
+        
         .gallery-item {
-            padding: 0; /* Override .card padding */
-            overflow: hidden; /* Ensures the image corners are rounded with the card */
-            aspect-ratio: 1 / 1; /* Makes all gallery items square */
-            text-decoration: none; /* Removes underline from link */
+            flex-shrink: 0; /* Prevents items from shrinking */
+            width: 300px; /* Fixed width for items in the row */
+            border-radius: 12px;
+            overflow: hidden;
+            aspect-ratio: 1 / 1;
+            text-decoration: none;
             display: block;
+            border: 1px solid var(--border-color);
+            box-shadow: var(--card-shadow);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            scroll-snap-align: start; /* Align items to the start on snap */
+        }
+        .gallery-item:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 10px 20px -5px var(--glow-color), 0 4px 6px -2px rgba(0,0,0,0.05); 
         }
         .gallery-item img {
             width: 100%;
             height: 100%;
-            object-fit: cover; /* Ensures image fills the container without distortion */
-            display: block; /* Removes any extra space below the image */
-            transition: transform 0.4s ease, filter 0.4s ease;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.4s ease;
         }
         .gallery-item:hover img {
             transform: scale(1.05);
-            filter: brightness(1.1);
         }
-        .gallery-subtitle {
-            text-align: center;
-            font-size: 1.5rem;
-            margin-top: 60px;
-            margin-bottom: 40px;
-            font-weight: 600;
-            color: var(--text-primary);
-        }
-        .section.gallery-page {
-            padding-top: 60px;
+
+        @media (max-width: 768px) {
+            .gallery-category h3 { padding-left: 15px; }
+            .scrollable-gallery-row { gap: 15px; padding: 10px 15px; }
+            .gallery-item { width: 250px; }
+            .scrollable-gallery-wrapper::after { width: 50px; }
         }
         
     </style>
@@ -199,7 +235,7 @@
     <div class="mobile-nav-overlay"></div>
     <header>
         <div class="navbar">
-            <a href="index.html" class="logo-area"> <!-- Assuming your main page is index.html -->
+            <a href="index.html" class="logo-area">
                 <img src="https://naford.netlify.app/naford_logo.jpg" alt="NAFORD Logo" class="logo-image">
                 <div>
                     <div class="logo-main-text">NAFORD</div>
@@ -209,11 +245,10 @@
             <div class="nav-right">
                 <nav>
                     <ul class="nav-links">
-                        <!-- Update links to point to sections in your main index.html file -->
                         <li><a href="index.html#home">Home</a></li>
                         <li><a href="index.html#about-us">About Us</a></li>
                         <li><a href="index.html#team">Team</a></li>
-                        <li><a href="gallery.html">Gallery</a></li> <!-- Link to this page -->
+                        <li><a href="gallery.html">Gallery</a></li>
                         <li><a href="index.html#register">Register</a></li>
                     </ul>
                 </nav>
@@ -229,66 +264,84 @@
                 <div class="container">
                     <h2 class="animate-on-scroll">Our Gallery</h2>
                     <p class="section-intro animate-on-scroll" style="transition-delay: 0.1s;">A visual journey through our activities, achievements, academic pursuits, and community engagement across India's premier medical institutions.</p>
-                    
-                    <!-- NAFORD stands with RGKAR -->
-                    <h3 class="gallery-subtitle animate-on-scroll">NAFORD stands with RGKAR</h3>
-                    <div class="grid-3">
-                        <a href="https://ibb.co/hJFMnqbw" target="_blank" class="card gallery-item animate-on-scroll"><img src="https://i.ibb.co/S4wx1LbG/NAFORD-STANDS-WITH-RG-KAR-MEDICAL-COLLEGE-1.webp" alt="NAFORD stands with RGKAR 1"></a>
-                        <a href="https://ibb.co/wFxKtFzv" target="_blank" class="card gallery-item animate-on-scroll"><img src="https://i.ibb.co/4n5jknVQ/NAFORD-STANDS-WITH-RG-KAR-MEDICAL-COLLEGE-2.webp" alt="NAFORD stands with RGKAR 2"></a>
-                        <a href="https://ibb.co/S4rmwM64" target="_blank" class="card gallery-item animate-on-scroll"><img src="https://i.ibb.co/0Rt9y6nR/NAFORD-STANDS-WITH-RG-KAR-MEDICAL-COLLEGE-3.webp" alt="NAFORD stands with RGKAR 3"></a>
-                        <a href="https://ibb.co/KzV6nxBY" target="_blank" class="card gallery-item animate-on-scroll"><img src="https://i.ibb.co/HpG7ZTR0/NAFORD-STANDS-WITH-RG-KAR-MEDICAL-COLLEGE-4.webp" alt="NAFORD stands with RGKAR 4"></a>
-                        <a href="https://ibb.co/pvLbpHH8" target="_blank" class="card gallery-item animate-on-scroll"><img src="https://i.ibb.co/zh4Qw33Y/NAFORD-STANDS-WITH-RG-KAR-MEDICAL-COLLEGE-5.webp" alt="NAFORD stands with RGKAR 5"></a>
-                        <a href="https://ibb.co/C3s1LtL8" target="_blank" class="card gallery-item animate-on-scroll"><img src="https://i.ibb.co/DHgVdbdW/NAFORD-STANDS-WITH-RG-KAR-MEDICAL-COLLEGE-6.webp" alt="NAFORD stands with RGKAR 6"></a>
-                        <a href="https://ibb.co/knFK2b0" target="_blank" class="card gallery-item animate-on-scroll"><img src="https://i.ibb.co/LwfSdj6/NAFORD-STANDS-WITH-RG-KAR-MEDICAL-COLLEGE-7.webp" alt="NAFORD stands with RGKAR 7"></a>
-                        <a href="https://ibb.co/zVxJjdPh" target="_blank" class="card gallery-item animate-on-scroll"><img src="https://i.ibb.co/ZzXmt9c6/NAFORD-STANDS-WITH-RG-KAR-MEDICAL-COLLEGE-8.webp" alt="NAFORD stands with RGKAR 8"></a>
-                        <a href="https://ibb.co/Q3jymjYr" target="_blank" class="card gallery-item animate-on-scroll"><img src="https://i.ibb.co/G43zP3Cc/NAFORD-STANDS-WITH-RG-KAR-MEDICAL-COLLEGE-9.webp" alt="NAFORD stands with RGKAR 9"></a>
-                        <a href="https://ibb.co/VWtXDx8g" target="_blank" class="card gallery-item animate-on-scroll"><img src="https://i.ibb.co/SXPq0cpt/NAFORD-STANDS-WITH-RG-KAR-MEDICAL-COLLEGE-10.webp" alt="NAFORD stands with RGKAR 10"></a>
-                        <a href="https://ibb.co/HpMT6R6K" target="_blank" class="card gallery-item animate-on-scroll"><img src="https://i.ibb.co/n8VM949w/NAFORD-STANDS-WITH-RG-KAR-MEDICAL-COLLEGE-11.webp" alt="NAFORD stands with RGKAR 11"></a>
-                        <a href="https://ibb.co/tp8TH48w" target="_blank" class="card gallery-item animate-on-scroll"><img src="https://i.ibb.co/8g6Lm06n/NAFORD-STANDS-WITH-RG-KAR-MEDICAL-COLLEGE-12.webp" alt="NAFORD stands with RGKAR 12"></a>
-                        <a href="https://ibb.co/KxsgWRPg" target="_blank" class="card gallery-item animate-on-scroll"><img src="https://i.ibb.co/JjpTH01T/NAFORD-STANDS-WITH-RG-KAR-MEDICAL-COLLEGE-13.webp" alt="NAFORD stands with RGKAR 13"></a>
-                        <a href="https://ibb.co/SXLsKNs5" target="_blank" class="card gallery-item animate-on-scroll"><img src="https://i.ibb.co/XZw2zX2j/NAFORD-STANDS-WITH-RG-KAR-MEDICAL-COLLEGE-14.webp" alt="NAFORD stands with RGKAR 14"></a>
-                        <a href="https://ibb.co/3m79rys3" target="_blank" class="card gallery-item animate-on-scroll"><img src="https://i.ibb.co/Xxbr2Z4Q/NAFORD-STANDS-WITH-RG-KAR-MEDICAL-COLLEGE-15.webp" alt="NAFORD stands with RGKAR 15"></a>
-                        <a href="https://ibb.co/N2j38KNq" target="_blank" class="card gallery-item animate-on-scroll"><img src="https://i.ibb.co/hFWMPVdN/NAFORD-STANDS-WITH-RG-KAR-MEDICAL-COLLEGE-16.webp" alt="NAFORD stands with RGKAR 16"></a>
-                    </div>
+                </div>
 
-                    <!-- Activism -->
-                    <h3 class="gallery-subtitle animate-on-scroll">Activism</h3>
-                    <div class="grid-3">
-                        <a href="https://ibb.co/k636bYcR" target="_blank" class="card gallery-item animate-on-scroll"><img src="https://i.ibb.co/S7Q7Yqvh/mental-health.webp" alt="Activism: Mental Health"></a>
-                        <a href="https://ibb.co/SXvXXXHp" target="_blank" class="card gallery-item animate-on-scroll"><img src="https://i.ibb.co/MDNDDDKL/Thesis-101-From-Start-to-Stellar.webp" alt="Activism: Thesis 101"></a>
-                        <a href="https://ibb.co/JjDVhdzT" target="_blank" class="card gallery-item animate-on-scroll"><img src="https://i.ibb.co/nMx9W0Dy/White-and-Grey-Simple-Webinar-Poster-Landscape.webp" alt="Activism: Webinar Poster"></a>
-                        <a href="https://ibb.co/Y4zyTxzW" target="_blank" class="card gallery-item animate-on-scroll"><img src="https://i.ibb.co/35DMYnDs/1-YEAR-OF-INJUSTICE-2.webp" alt="1 YEAR OF INJUSTICE"></a>
-                        <a href="https://ibb.co/Gf3PcTQL" target="_blank" class="card gallery-item animate-on-scroll"><img src="https://i.ibb.co/fVG04vd5/Whats-App-Image-2025-10-15-at-14-39-40-1.webp" alt="Activism Image"></a>
-                        <a href="https://ibb.co/6cHW2fYg" target="_blank" class="card gallery-item animate-on-scroll"><img src="https://i.ibb.co/8nr7JSM6/Whats-App-Image-2025-10-15-at-14-42-22-2.webp" alt="Activism Image"></a>
-                        <a href="https://ibb.co/6J4j7B0r" target="_blank" class="card gallery-item animate-on-scroll"><img src="https://i.ibb.co/zHSqTJVQ/Whats-App-Image-2025-10-15-at-14-42-22-4.webp" alt="Activism Image"></a>
-                        <a href="https://ibb.co/m5nLZ9hr" target="_blank" class="card gallery-item animate-on-scroll"><img src="https://i.ibb.co/DfBxc9wP/Whats-App-Image-2025-10-15-at-14-42-22.webp" alt="Activism Image"></a>
-                        <a href="https://ibb.co/FL2Ryqy7" target="_blank" class="card gallery-item animate-on-scroll"><img src="https://i.ibb.co/hJb34148/Whats-App-Image-2025-10-15-at-14-42-23-2.webp" alt="Activism Image"></a>
-                        <a href="https://ibb.co/gZXchXzg" target="_blank" class="card gallery-item animate-on-scroll"><img src="https://i.ibb.co/4RD03DPN/Whats-App-Image-2025-10-15-at-14-42-23-4.webp" alt="Activism Image"></a>
-                        <a href="https://ibb.co/nSfzBwP" target="_blank" class="card gallery-item animate-on-scroll"><img src="https://i.ibb.co/yJ5WpN4/Whats-App-Image-2025-10-15-at-14-44-07-2.webp" alt="Activism Image"></a>
-                        <a href="https://ibb.co/yFL6H94F" target="_blank" class="card gallery-item animate-on-scroll"><img src="https://i.ibb.co/jk7ynNJk/Whats-App-Image-2025-10-15-at-14-44-07-3.webp" alt="Activism Image"></a>
-                        <a href="https://ibb.co/hxSzyFvD" target="_blank" class="card gallery-item animate-on-scroll"><img src="https://i.ibb.co/7xqmXtF2/Whats-App-Image-2025-10-15-at-14-44-07-5.webp" alt="Activism Image"></a>
+                <!-- Category: NAFORD stands with RGKAR -->
+                <div class="gallery-category animate-on-scroll">
+                    <h3>NAFORD stands with RGKAR</h3>
+                    <div class="scrollable-gallery-wrapper">
+                        <div class="scrollable-gallery-row">
+                            <a href="https://ibb.co/hJFMnqbw" target="_blank" class="gallery-item"><img src="https://i.ibb.co/S4wx1LbG/NAFORD-STANDS-WITH-RG-KAR-MEDICAL-COLLEGE-1.webp" alt="NAFORD stands with RGKAR 1"></a>
+                            <a href="https://ibb.co/wFxKtFzv" target="_blank" class="gallery-item"><img src="https://i.ibb.co/4n5jknVQ/NAFORD-STANDS-WITH-RG-KAR-MEDICAL-COLLEGE-2.webp" alt="NAFORD stands with RGKAR 2"></a>
+                            <a href="https://ibb.co/S4rmwM64" target="_blank" class="gallery-item"><img src="https://i.ibb.co/0Rt9y6nR/NAFORD-STANDS-WITH-RG-KAR-MEDICAL-COLLEGE-3.webp" alt="NAFORD stands with RGKAR 3"></a>
+                            <a href="https://ibb.co/KzV6nxBY" target="_blank" class="gallery-item"><img src="https://i.ibb.co/HpG7ZTR0/NAFORD-STANDS-WITH-RG-KAR-MEDICAL-COLLEGE-4.webp" alt="NAFORD stands with RGKAR 4"></a>
+                            <a href="https://ibb.co/pvLbpHH8" target="_blank" class="gallery-item"><img src="https://i.ibb.co/zh4Qw33Y/NAFORD-STANDS-WITH-RG-KAR-MEDICAL-COLLEGE-5.webp" alt="NAFORD stands with RGKAR 5"></a>
+                            <a href="https://ibb.co/C3s1LtL8" target="_blank" class="gallery-item"><img src="https://i.ibb.co/DHgVdbdW/NAFORD-STANDS-WITH-RG-KAR-MEDICAL-COLLEGE-6.webp" alt="NAFORD stands with RGKAR 6"></a>
+                            <a href="https://ibb.co/knFK2b0" target="_blank" class="gallery-item"><img src="https://i.ibb.co/LwfSdj6/NAFORD-STANDS-WITH-RG-KAR-MEDICAL-COLLEGE-7.webp" alt="NAFORD stands with RGKAR 7"></a>
+                            <a href="https://ibb.co/zVxJjdPh" target="_blank" class="gallery-item"><img src="https://i.ibb.co/ZzXmt9c6/NAFORD-STANDS-WITH-RG-KAR-MEDICAL-COLLEGE-8.webp" alt="NAFORD stands with RGKAR 8"></a>
+                            <a href="https://ibb.co/Q3jymjYr" target="_blank" class="gallery-item"><img src="https://i.ibb.co/G43zP3Cc/NAFORD-STANDS-WITH-RG-KAR-MEDICAL-COLLEGE-9.webp" alt="NAFORD stands with RGKAR 9"></a>
+                            <a href="https://ibb.co/VWtXDx8g" target="_blank" class="gallery-item"><img src="https://i.ibb.co/SXPq0cpt/NAFORD-STANDS-WITH-RG-KAR-MEDICAL-COLLEGE-10.webp" alt="NAFORD stands with RGKAR 10"></a>
+                        </div>
                     </div>
-                    
-                    <!-- Creativity -->
-                    <h3 class="gallery-subtitle animate-on-scroll">Creativity</h3>
-                    <div class="grid-3">
-                        <a href="https://ibb.co/XkxJSRgM" target="_blank" class="card gallery-item animate-on-scroll"><img src="https://i.ibb.co/5xhcBHyw/naford-photo-competition.webp" alt="Creativity: NAFORD Photo Competition"></a>
-                    </div>
-                    
-                    <!-- Residents Dialogue Exchange -->
-                    <h3 class="gallery-subtitle animate-on-scroll">Residents Dialogue Exchange</h3>
-                    <div class="grid-3">
-                        <a href="https://ibb.co/6RZR0fF9" target="_blank" class="card gallery-item animate-on-scroll"><img src="https://i.ibb.co/C5t5KTQC/Whats-App-Image-2025-10-21-at-19-23-55.webp" alt="Residents Dialogue Exchange"></a>
-                    </div>
-                    
-                    <!-- Welfare -->
-                    <h3 class="gallery-subtitle animate-on-scroll">Welfare</h3>
-                    <div class="grid-3">
-                        <a href="https://ibb.co/s9NG1gMN" target="_blank" class="card gallery-item animate-on-scroll"><img src="https://i.ibb.co/TM7S0wF7/doantion-poster-for-flood-victims.webp" alt="Welfare: Donation for Flood Victims"></a>
-                        <a href="https://ibb.co/mFNLhH4W" target="_blank" class="card gallery-item animate-on-scroll"><img src="https://i.ibb.co/TqWVPHt3/Whats-App-Image-2025-10-22-at-16-33-54-1.webp" alt="Welfare Activity"></a>
-                        <a href="https://ibb.co/67x7NNxJ" target="_blank" class="card gallery-item animate-on-scroll"><img src="https://i.ibb.co/Jw4wCC4F/Whats-App-Image-2025-10-22-at-16-33-54.webp" alt="Welfare Activity"></a>
-                    </div>
+                </div>
 
+                <!-- Category: Academics -->
+                <div class="gallery-category animate-on-scroll">
+                    <h3>Academics</h3>
+                    <div class="scrollable-gallery-wrapper">
+                        <div class="scrollable-gallery-row">
+                            <a href="https://ibb.co/k636bYcR" target="_blank" class="gallery-item"><img src="https://i.ibb.co/S7Q7Yqvh/mental-health.webp" alt="Academics: Mental Health Awareness"></a>
+                            <a href="https://ibb.co/SXvXXXHp" target="_blank" class="gallery-item"><img src="https://i.ibb.co/MDNDDDKL/Thesis-101-From-Start-to-Stellar.webp" alt="Academics: Thesis 101 Workshop"></a>
+                            <a href="https://ibb.co/JjDVhdzT" target="_blank" class="gallery-item"><img src="https://i.ibb.co/nMx9W0Dy/White-and-Grey-Simple-Webinar-Poster-Landscape.webp" alt="Academics: Webinar Poster"></a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Category: Activism -->
+                <div class="gallery-category animate-on-scroll">
+                    <h3>Activism</h3>
+                    <div class="scrollable-gallery-wrapper">
+                        <div class="scrollable-gallery-row">
+                            <a href="https://ibb.co/Y4zyTxzW" target="_blank" class="gallery-item"><img src="https://i.ibb.co/35DMYnDs/1-YEAR-OF-INJUSTICE-2.webp" alt="Activism Poster: 1 Year of Injustice"></a>
+                            <a href="https://ibb.co/Gf3PcTQL" target="_blank" class="gallery-item"><img src="https://i.ibb.co/fVG04vd5/Whats-App-Image-2025-10-15-at-14-39-40-1.webp" alt="Activism Event Image 1"></a>
+                            <a href="https://ibb.co/6cHW2fYg" target="_blank" class="gallery-item"><img src="https://i.ibb.co/8nr7JSM6/Whats-App-Image-2025-10-15-at-14-42-22-2.webp" alt="Activism Event Image 2"></a>
+                            <a href="https://ibb.co/6J4j7B0r" target="_blank" class="gallery-item"><img src="https://i.ibb.co/zHSqTJVQ/Whats-App-Image-2025-10-15-at-14-42-22-4.webp" alt="Activism Event Image 3"></a>
+                            <a href="https://ibb.co/m5nLZ9hr" target="_blank" class="gallery-item"><img src="https://i.ibb.co/DfBxc9wP/Whats-App-Image-2025-10-15-at-14-42-22.webp" alt="Activism Event Image 4"></a>
+                            <a href="https://ibb.co/FL2Ryqy7" target="_blank" class="gallery-item"><img src="https://i.ibb.co/hJb34148/Whats-App-Image-2025-10-15-at-14-42-23-2.webp" alt="Activism Event Image 5"></a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Category: Creativity -->
+                <div class="gallery-category animate-on-scroll">
+                    <h3>Creativity</h3>
+                    <div class="scrollable-gallery-wrapper">
+                        <div class="scrollable-gallery-row">
+                            <a href="https://ibb.co/XkxJSRgM" target="_blank" class="gallery-item"><img src="https://i.ibb.co/5xhcBHyw/naford-photo-competition.webp" alt="Creativity: NAFORD Photo Competition"></a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Category: Residents Dialogue Exchange -->
+                <div class="gallery-category animate-on-scroll">
+                    <h3>Residents Dialogue Exchange</h3>
+                    <div class="scrollable-gallery-wrapper">
+                        <div class="scrollable-gallery-row">
+                            <a href="https://ibb.co/6RZR0fF9" target="_blank" class="gallery-item"><img src="https://i.ibb.co/C5t5KTQC/Whats-App-Image-2025-10-21-at-19-23-55.webp" alt="Residents Dialogue Exchange Event"></a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Category: Welfare -->
+                <div class="gallery-category animate-on-scroll">
+                    <h3>Welfare</h3>
+                    <div class="scrollable-gallery-wrapper">
+                        <div class="scrollable-gallery-row">
+                            <a href="https://ibb.co/s9NG1gMN" target="_blank" class="gallery-item"><img src="https://i.ibb.co/TM7S0wF7/doantion-poster-for-flood-victims.webp" alt="Welfare: Donation for Flood Victims"></a>
+                            <a href="https://ibb.co/mFNLhH4W" target="_blank" class="gallery-item"><img src="https://i.ibb.co/TqWVPHt3/Whats-App-Image-2025-10-22-at-16-33-54-1.webp" alt="Welfare Activity Image 1"></a>
+                            <a href="https://ibb.co/67x7NNxJ" target="_blank" class="gallery-item"><img src="https://i.ibb.co/Jw4wCC4F/Whats-App-Image-2025-10-22-at-16-33-54.webp" alt="Welfare Activity Image 2"></a>
+                        </div>
+                    </div>
                 </div>
             </section>
         </div>
@@ -318,9 +371,6 @@
             </div>
             <div class="footer-bottom">
                 <p>© 2025 NAFORD. All Rights Reserved.</p>
-                <div class="footer-links">
-                    <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a>
-                </div>
             </div>
         </div>
     </footer>

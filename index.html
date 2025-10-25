@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <html lang="en" data-theme="light">
 <head>
     <meta charset="UTF-8">
@@ -7,7 +6,7 @@
     
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
     
     <!-- Font Awesome for Icons -->
@@ -46,7 +45,7 @@
         html { scroll-behavior: smooth; }
         body {
             font-family: 'Poppins', sans-serif;
-            background-color: var(--bg-backdrop); /* Using the backdrop color */
+            background-color: var(--bg-backdrop);
             color: var(--text-primary);
             line-height: 1.7;
             transition: background-color 0.3s, color 0.3s;
@@ -69,7 +68,7 @@
             background-color: var(--bg-primary);
             border-radius: 16px;
             box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1), 0 8px 10px -6px rgba(0,0,0,0.1);
-            overflow: hidden; /* Important for border-radius on children */
+            overflow: hidden;
         }
         
         /* --- Header & Navigation --- */
@@ -92,6 +91,12 @@
         #theme-toggle:hover { color: var(--accent-primary); transform: scale(1.1); }
         .hamburger { display: none; font-size: 1.8rem; cursor: pointer; }
 
+        /* --- General Card & Grid Styles --- */
+        .card { background: var(--bg-secondary); padding: 25px; border-radius: 12px; border: 1px solid var(--border-color); box-shadow: var(--card-shadow); transition: transform 0.3s, box-shadow 0.3s; }
+        .card:hover { transform: translateY(-5px); box-shadow: 0 8px 15px -3px rgba(0,0,0,0.07); }
+        .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
+        .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 30px; justify-content: center;}
+
         /* --- Hero Section --- */
         .hero { text-align: center; padding-top: 0; padding-left: 0; padding-right: 0; }
         .hero-image { display: block; width: 100%; height: 400px; object-fit: cover; }
@@ -99,7 +104,7 @@
         .hero h1 { color: var(--accent-primary); font-weight: 700; margin-bottom: 20px; }
         .hero p { font-size: 1.2rem; max-width: 800px; margin: 0 auto 30px; }
         
-        /* --- Stats Section (Redesigned) --- */
+        /* --- Stats Section --- */
         .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; margin-top: 40px; }
         .stat-card { background: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: 12px; padding: 25px; text-align: left; display: flex; align-items: center; gap: 20px; box-shadow: var(--card-shadow); }
         .stat-card .icon { font-size: 2.5rem; color: var(--accent-secondary); }
@@ -114,59 +119,62 @@
         .mission-item h4 { margin-bottom: 5px; font-size: 1.1rem; }
         
         /* --- Team Section --- */
-        .team-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
-        .team-member { background: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: 12px; padding: 25px; text-align: center; box-shadow: var(--card-shadow); transition: transform 0.3s ease, box-shadow 0.3s ease; display: flex; flex-direction: column; }
-        .team-member:hover { transform: translateY(-8px); box-shadow: 0 12px 20px -4px rgba(0, 0, 0, 0.1); }
+        .team-member { text-align: center; display: flex; flex-direction: column; }
         .team-member img { width: 120px; height: 120px; border-radius: 50%; object-fit: cover; margin: 0 auto 15px; border: 3px solid var(--accent-secondary); }
         .team-member .role { font-size: 0.9em; font-weight: 600; color: var(--text-secondary); display: block; margin-bottom: 10px; min-height: 50px; }
         .team-member .bio { font-size: 0.9rem; color: var(--text-secondary); flex-grow: 1; }
 
         /* --- Network & Hub Sections --- */
-        .network-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; }
-        .network-institution { background: var(--bg-secondary); padding: 25px; border-radius: 12px; border: 1px solid var(--border-color); box-shadow: var(--card-shadow); transition: transform 0.3s, box-shadow 0.3s; }
-        .network-institution:hover { transform: translateY(-5px); box-shadow: 0 8px 15px -3px rgba(0,0,0,0.1); }
+        .network-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; margin-top: 50px;}
         .network-institution .tagline { font-weight: 600; color: var(--text-primary); margin: 10px 0; }
         .inst-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; font-size: 0.9em; color: var(--text-secondary); }
         .inst-stats span { display: flex; align-items: center; gap: 8px; }
         .inst-stats .icon { color: var(--accent-secondary); }
 
-        .hub-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; align-items: stretch; }
-        .hub-image-container { border-radius: 12px; overflow: hidden; box-shadow: var(--card-shadow); }
-        .hub-image { width: 100%; height: 100%; object-fit: cover; }
-        .success-stories-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; margin-top: 50px; }
-        .story-card { background: var(--bg-secondary); padding: 25px; border-radius: 12px; border-left: 5px solid var(--accent-secondary); box-shadow: var(--card-shadow); }
-        .story-card .quote { font-style: italic; margin-bottom: 15px; color: var(--text-secondary); }
-        .story-card .achievement { font-weight: 600; color: var(--text-primary); }
-        
+        /* --- Registration Form --- */
+        .registration-form { max-width: 700px; margin: 0 auto; background: var(--bg-secondary); padding: 40px; border-radius: 12px; border: 1px solid var(--border-color); }
+        .form-group { margin-bottom: 20px; }
+        .form-group label { display: block; margin-bottom: 8px; font-weight: 600; }
+        .form-group input, .form-group select { width: 100%; padding: 12px; border-radius: 8px; border: 1px solid var(--border-color); background-color: var(--bg-primary); color: var(--text-primary); font-family: 'Poppins', sans-serif; }
+        .form-submit-btn { width: 100%; padding: 15px; background: var(--accent-primary); color: #fff; border: none; border-radius: 8px; font-size: 1.1rem; font-weight: 600; cursor: pointer; transition: background-color 0.3s; }
+        .form-submit-btn:hover { background: var(--accent-secondary); }
+
+        /* --- Blog & News Section --- */
+        .post-card h4 { margin-bottom: 10px; }
+        .post-card .post-meta { font-size: 0.9em; color: var(--text-secondary); margin-bottom: 15px; }
+        .post-card .post-excerpt { margin-bottom: 15px; }
+        .post-card a { text-decoration: none; color: var(--accent-primary); font-weight: 600; }
+
+        /* --- Residents Hub --- */
+        .hub-content-lock { text-align: center; background: var(--bg-secondary); padding: 40px; border-radius: 12px; border: 2px dashed var(--border-color); }
+        .hub-content-lock .icon { font-size: 3rem; color: var(--accent-primary); margin-bottom: 20px; }
+        .hub-content-unlocked { display: none; /* Initially hidden */ }
+        .resource-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin-top: 30px; }
+        .resource-card { text-align: center; }
+        .resource-card .icon { font-size: 3rem; margin-bottom: 15px; color: var(--accent-primary); }
+
         /* --- Footer --- */
-        footer { background-color: var(--bg-backdrop); padding: 40px 0; text-align: center; }
+        footer { background-color: var(--bg-primary); padding: 60px 0 30px 0; border-top: 1px solid var(--border-color); }
+        .footer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 40px; margin-bottom: 40px; }
+        .footer-col h4 { font-size: 1.1rem; margin-bottom: 15px; color: var(--text-primary); }
+        .footer-col p { margin-bottom: 10px; }
+        .footer-col a { color: var(--text-secondary); text-decoration: none; transition: color 0.3s; }
+        .footer-col a:hover { color: var(--accent-primary); }
+        .social-links { display: flex; gap: 20px; margin-top: 10px; }
+        .social-links a { font-size: 1.6rem; color: var(--text-secondary); }
+        .footer-bottom { text-align: center; border-top: 1px solid var(--border-color); padding-top: 30px; font-size: 0.9em; }
+        .footer-bottom p { margin-bottom: 8px; }
         .footer-links a { color: var(--text-secondary); text-decoration: none; margin: 0 10px; }
         .footer-links a:hover { color: var(--accent-primary); }
         
-        /* --- Animations & Responsive --- */
-        .fade-in-element { opacity: 0; transform: translateY(30px); transition: opacity 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94); }
-        .fade-in-element.is-visible { opacity: 1; transform: translateY(0); }
-        @media (max-width: 992px) {
-            .about-grid, .hub-grid { grid-template-columns: 1fr; }
-            .section { padding: 40px 30px; }
-        }
-        
-        /* --- OPTIMIZED FOR MOBILE --- */
+        /* --- Responsive --- */
+        @media (max-width: 992px) { .about-grid, .hub-grid, .resource-grid { grid-template-columns: 1fr; } .section { padding: 40px 30px; } }
         @media (max-width: 768px) {
-            .section { padding: 40px 15px; }
-            .hero-content { padding-left: 0; padding-right: 0; }
-            .container { padding-left: 0; padding-right: 0; }
-            
+            .section { padding: 40px 15px; } .hero-content { padding-left: 0; padding-right: 0; } .container { padding-left: 0; padding-right: 0; }
             .main-content-wrapper { margin: 10px; border-radius: 12px; }
-            
-            .nav-links {
-                position: fixed; top: 74px; right: -100%; width: 100%; height: calc(100vh - 74px);
-                flex-direction: column; align-items: center; justify-content: center; gap: 40px;
-                background-color: var(--bg-primary); transition: right 0.4s ease-in-out;
-            }
-            .nav-links.active { right: 0; }
-            .nav-links a { font-size: 1.2rem; }
-            .hamburger { display: block; }
+            .nav-links { position: fixed; top: 74px; right: -100%; width: 100%; height: calc(100vh - 74px); flex-direction: column; align-items: center; justify-content: center; gap: 40px; background-color: var(--bg-primary); transition: right 0.4s ease-in-out; }
+            .nav-links.active { right: 0; } .nav-links a { font-size: 1.2rem; } .hamburger { display: block; }
+            .footer-grid { text-align: center; } .social-links { justify-content: center; }
         }
     </style>
 </head>
@@ -178,7 +186,7 @@
                 <img src="https://naford.netlify.app/naford_logo.jpg" alt="NAFORD Logo" class="logo-image">
                 <div>
                     <div class="logo-main-text">NAFORD</div>
-                    <div class="logo-tagline">AIIMS & INIs</div>
+                    <div class="logo-tagline">AIIMS &amp; INIs</div>
                 </div>
             </a>
             <div class="nav-right">
@@ -186,9 +194,12 @@
                     <ul class="nav-links">
                         <li><a href="#home">Home</a></li>
                         <li><a href="#about-us">About Us</a></li>
-                        <li><a href="#team">Meet the Team</a></li>
+                        <li><a href="#team">Team</a></li>
                         <li><a href="#network">Network</a></li>
                         <li><a href="#resident-hub">Resident Hub</a></li>
+                        <li><a href="#news">News & Events</a></li>
+                        <li><a href="#blog">Blog</a></li>
+                        <li><a href="#register">Register</a></li>
                     </ul>
                 </nav>
                 <button id="theme-toggle" aria-label="Toggle dark mode"><i class="fa-solid fa-moon"></i></button>
@@ -199,109 +210,212 @@
 
     <main>
         <div class="main-content-wrapper">
+            <!-- Hero Section -->
             <section id="home" class="hero section">
                 <img src="https://images.unsplash.com/photo-1551601651-2a8555f1a136?q=80&w=2070&auto=format&fit=crop" alt="Medical professionals in hospital corridor" class="hero-image fade-in-element">
                 <div class="hero-content fade-in-element">
                     <h1>Empowering Resident Doctors Across India</h1>
                     <p>The National Federation of Resident Doctors Association for AIIMS and INIs stands as the premier voice for resident doctors, advocating for excellence in medical education, professional development, and healthcare delivery.</p>
-                    <div class="stats-grid">
-                        <div class="stat-card">
-                            <i class="fa-solid fa-hospital icon"></i>
-                            <div><h3>25+</h3><p>AIIMS & INIs</p></div>
-                        </div>
-                        <div class="stat-card">
-                            <i class="fa-solid fa-user-doctor icon"></i>
-                            <div><h3>10,000+</h3><p>Resident Doctors</p></div>
-                        </div>
-                        <div class="stat-card">
-                            <i class="fa-solid fa-heart-pulse icon"></i>
-                            <div><h3>100M+</h3><p>Lives Touched</p></div>
-                        </div>
-                    </div>
                 </div>
             </section>
 
+            <!-- About Us Section -->
             <section id="about-us" class="section">
                 <div class="container fade-in-element">
                     <h2>About NAFORD</h2>
                     <p class="section-intro">Since our inception, NAFORD has been the cornerstone of medical education excellence and resident advocacy across India's premier medical institutions.</p>
                     <div class="about-grid">
                         <div class="about-card">
-                            <h3>Our Story</h3>
-                            <p>Born from the collective vision of dedicated resident doctors, NAFORD represents the unified voice of medical professionals across all AIIMS and INIs. We stand as guardians of medical excellence, advocates for resident welfare, and pioneers in shaping the future of healthcare education in India.</p>
-                            <p>Our journey has been marked by unwavering commitment to improving working conditions, enhancing educational opportunities, and ensuring that every resident doctor receives the support they need to excel.</p>
+                            <h3>History of NAFORD(National Federation of Resident Doctors of AIIMS and INIs)</h3>
+                            <p>The National Federation of Resident Doctors of AIIMS and INIS (NAFORD) was established as a unifying body representing the resident doctors across the INI Institutes.</p>
+                            <p>Originally founded under the name “PARWA”, Peripheral AIIMS Resident Welfare Association, the organization was created with the vision of bringing together residents from all INIs institutions under a common platform. The early efforts of PARWA focused on fostering academic collaboration, welfare, and mutual support among young doctors pursuing their residency in INIs-associated institutes.</p>
                         </div>
                         <div class="about-card">
                             <h3>Our Mission</h3>
                             <p>To champion the cause of resident doctors and elevate the standards of medical education and healthcare delivery across India.</p>
                             <div class="mission-item"><i class="fa-solid fa-graduation-cap icon"></i><div><h4>Excellence in Medical Education</h4><p>Committed to the highest standards of medical training and continuous professional development.</p></div></div>
                             <div class="mission-item"><i class="fa-solid fa-lightbulb icon"></i><div><h4>Visionary Leadership</h4><p>Guiding the future of healthcare through innovative policies and progressive advocacy.</p></div></div>
-                            <div class="mission-item"><i class="fa-solid fa-hand-holding-heart icon"></i><div><h4>Compassionate Care</h4><p>Fostering a culture of empathy and dedication to patient care and professional wellbeing.</p></div></div>
                         </div>
                     </div>
                 </div>
             </section>
-
+            
+            <!-- Team Section (CORRECTED) -->
             <section id="team" class="section">
                 <div class="container fade-in-element">
                     <h2>Meet the Team</h2>
-                    <p class="section-intro">The driving force behind NAFORD's mission and vision, dedicated to advancing the cause of resident doctors across India.</p>
-                    <div class="team-grid">
-                        <div class="team-member"><img src="https://via.placeholder.com/120/0056b3/ffffff?text=LSM" alt="Dr. L. Sarat Manohar"><h4>Dr. L. Sarat Manohar</h4><span class="role">Founder & Joint Secretary, NAFORD; General Secretary, SIRDA; Ex-President, AIIMS Hyderabad<br>MBBS, MD (AIIMS), Fellow in Hematopathology (AIIMS)</span><p class="bio">The Founder & Joint Secretary of NAFORD and General Secretary of SIRDA, with leadership experience at AIIMS Hyderabad and active roles in national medical organizations.</p></div>
-                        <div class="team-member"><img src="https://via.placeholder.com/120/0056b3/ffffff?text=SB" alt="Dr. Swastik Bhardwaj"><h4>Dr. Swastik Bhardwaj</h4><span class="role">Advisory Committee<br>MBBS, MS, DrNB Urology</span><p class="bio">A third-year Urology resident at Saifee Hospital, Mumbai, with prior experience as Senior Resident at AIIMS Bhopal.</p></div>
-                        <div class="team-member"><img src="https://via.placeholder.com/120/0056b3/ffffff?text=SM" alt="Dr. Shwet Mishra"><h4>Dr. Shwet Mishra</h4><span class="role">President<br>MBBS, MD Pediatrics (Ongoing)</span><p class="bio">Currently pursuing MD Pediatrics at AIIMS Raipur after completing MBBS from AIIMS Bhopal.</p></div>
-                        <div class="team-member"><img src="https://via.placeholder.com/120/0056b3/ffffff?text=DCD" alt="Dr. Devesh Chandra Dubey"><h4>Dr. Devesh Chandra Dubey</h4><span class="role">Senior Resident, AIIMS New Delhi<br>MBBS, MD (Transfusion Medicine)</span><p class="bio">MD Immunohematology and Transfusion Medicine at All India Institute of Medical Sciences Bhopal.</p></div>
-                        <div class="team-member"><img src="https://via.placeholder.com/120/0056b3/ffffff?text=PB" alt="Dr. Piyush Bharti"><h4>Dr. Piyush Bharti</h4><span class="role">Joint Secretary, NAFORD (2024–2025); Junior Resident, AIIMS New Delhi<br>MD, Community Medicine (Pursuing)</span><p class="bio">Joint Secretary of NAFORD and Junior Resident at AIIMS New Delhi, with a strong background in leadership and advocacy for resident doctors.</p></div>
-                        <div class="team-member"><img src="https://via.placeholder.com/120/0056b3/ffffff?text=OB" alt="Dr. Osheen Banga"><h4>Dr. Osheen Banga</h4><span class="role">Junior Resident (Second Year), Dept. of Ophthalmology, AIIMS Nagpur</span><p class="bio">Member of Anti-Harassment/Grievance Committee, NAFORD. Dedicated to fostering a healthy, fair, and supportive environment for resident doctors.</p></div>
-                        <div class="team-member"><img src="https://via.placeholder.com/120/0056b3/ffffff?text=PN" alt="Dr. Prateek Nishant"><h4>Dr. Prateek Nishant</h4><span class="role">Advisory Committee<br>MBBS (Honours), MD, DNB, MBA (USA), MNAMS</span><p class="bio">Assistant Professor at IGIMS Patna, with expertise in Vitreoretina, Uvea, and a strong background in ophthalmology, management, and research.</p></div>
-                        <div class="team-member"><img src="https://via.placeholder.com/120/0056b3/ffffff?text=AKR" alt="Dr. Amit Kumar Rai"><h4>Dr. Amit Kumar Rai</h4><span class="role">Senior Resident, Dept. of Microbiology, AIIMS Gorakhpur<br>MD Clinical Microbiology</span><p class="bio">Senior Resident in Microbiology at AIIMS Gorakhpur, with a strong commitment to resident welfare and advocacy.</p></div>
-                        <div class="team-member"><img src="https://via.placeholder.com/120/0056b3/ffffff?text=SM" alt="Dr. Sukanya Majumder"><h4>Dr. Sukanya Majumder</h4><span class="role">Junior Resident-3, Dept. of Community and Family Medicine, AIIMS Gorakhpur</span><p class="bio">A third-year Junior Resident at AIIMS Gorakhpur, active in medical education, advocacy, and scientific events.</p></div>
-                        <div class="team-member"><img src="https://via.placeholder.com/120/0056b3/ffffff?text=RD" alt="Dr. Raghunandan Dixit"><h4>Dr. Raghunandan Dixit</h4><span class="role">Resident Doctor, AIIMS New Delhi; Former Gen. Secretary, RDA AIIMS<br>MS, MCh (Pursuing)</span><p class="bio">Known for his leadership as General Secretary of RDA AIIMS and his commitment to resident welfare and patient care.</p></div>
-                        <div class="team-member"><img src="https://via.placeholder.com/120/0056b3/ffffff?text=SG" alt="Dr. Sanyam Gupta"><h4>Dr. Sanyam Gupta</h4><span class="role">West Region Coordinator, NAFORD; Junior Resident (Second Year), AIIMS Nagpur</span><p class="bio">West Region Coordinator for NAFORD and a second-year Junior Resident in Radiodiagnosis at AIIMS Nagpur.</p></div>
-                        <div class="team-member"><img src="https://via.placeholder.com/120/0056b3/ffffff?text=JT" alt="Dr. J Talukdar"><h4>Dr. J Talukdar</h4><span class="role">Vice President, NAFORD (2025); President, RDA SCTIMST; Gen. Secretary, FAIMA (2025)</span><p class="bio">Extensive training in cardiothoracic and vascular anaesthesia and a strong record of academic and professional leadership.</p></div>
-                        <div class="team-member"><img src="https://via.placeholder.com/120/0056b3/ffffff?text=AG" alt="Dr. Aniket Gour"><h4>Dr. Aniket Gour</h4><span class="role">Junior Resident, 3rd Year, Community Medicine<br>MBBS (AIIMS Bhopal)</span><p class="bio">Junior Resident in Community Medicine at AIIMS Rishikesh. Currently Joint Secretary at NAFORD and Treasurer of RDA AIIMS Rishikesh.</p></div>
-                        <div class="team-member"><img src="https://via.placeholder.com/120/0056b3/ffffff?text=NSG" alt="Dr. Niranjhana Sree G"><h4>Dr. Niranjhana Sree G</h4><span class="role">Senior Resident (Transfusion Medicine), JIPMER Puducherry; Co-Treasurer, NAFORD</span><p class="bio">Expertise in clinical transfusion, immunohematology, and resident welfare.</p></div>
-                        <div class="team-member"><img src="https://via.placeholder.com/120/0056b3/ffffff?text=PG" alt="Dr. Prateek Goyal"><h4>Dr. Prateek Goyal</h4><span class="role">Postgraduate Student, Dept. of Community and Family Medicine<br>MD (AIIMS Bilaspur, Ongoing)</span><p class="bio">A postgraduate student at AIIMS Bilaspur, with experience as a Medical Officer and Junior Resident.</p></div>
+                    <p class="section-intro">The driving force behind NAFORD's mission, vision, and advocacy for resident doctors across India.</p>
+                    <h3 style="text-align:center;">Founder Members</h3>
+                    <div class="grid-2" style="max-width: 750px; margin: 40px auto;">
+                        <div class="card team-member"><img src="https://via.placeholder.com/120/0056b3/ffffff?text=DD" alt="Dr. Devesh Dubey"><h4>Dr. Devesh Dubey</h4><span class="role">Founder Member<br>Senior Resident, AIIMS New Delhi</span><p class="bio">A visionary leader instrumental in the conceptualization and establishment of NAFORD.</p></div>
+                        <div class="card team-member"><img src="https://via.placeholder.com/120/0056b3/ffffff?text=D" alt="Dr. Divyabhusan"><h4>Dr. Divyabhusan</h4><span class="role">Founder Member</span><p class="bio">Co-founder of the federation, dedicated to unifying resident doctors across all INIs.</p></div>
+                    </div>
+                    
+                    <hr style="margin: 60px 0; border-color: var(--border-color);">
+                    
+                    <h3 style="text-align:center; margin-top: 40px;">Core Committee</h3>
+                    <div class="grid-3">
+                        <div class="card team-member"><img src="https://via.placeholder.com/120/0056b3/ffffff?text=SB" alt="Dr. Swastik Bhardwaj"><h4>Dr. Swastik Bhardwaj</h4><span class="role">Advisory Committee<br>MBBS, MS, DrNB Urology</span><p class="bio">A third-year Urology resident at Saifee Hospital, Mumbai, with prior experience as Senior Resident at AIIMS Bhopal.</p></div>
+                        <div class="card team-member"><img src="https://via.placeholder.com/120/0056b3/ffffff?text=SM" alt="Dr. Shwet Mishra"><h4>Dr. Shwet Mishra</h4><span class="role">President<br>MBBS, MD Pediatrics (Ongoing)</span><p class="bio">Currently pursuing MD Pediatrics at AIIMS Raipur after completing MBBS from AIIMS Bhopal.</p></div>
+                        <div class="card team-member"><img src="https://via.placeholder.com/120/0056b3/ffffff?text=PB" alt="Dr. Piyush Bharti"><h4>Dr. Piyush Bharti</h4><span class="role">Joint Secretary, NAFORD (2024–2025); Junior Resident, AIIMS New Delhi<br>MD, Community Medicine (Pursuing)</span><p class="bio">Joint Secretary of NAFORD and Junior Resident at AIIMS New Delhi, with a strong background in leadership and advocacy for resident doctors.</p></div>
+                        <div class="card team-member"><img src="https://via.placeholder.com/120/0056b3/ffffff?text=OB" alt="Dr. Osheen Banga"><h4>Dr. Osheen Banga</h4><span class="role">Junior Resident (Second Year), Dept. of Ophthalmology, AIIMS Nagpur</span><p class="bio">Member of Anti-Harassment/Grievance Committee, NAFORD. Dedicated to fostering a healthy, fair, and supportive environment for resident doctors.</p></div>
+                        <div class="card team-member"><img src="https://via.placeholder.com/120/0056b3/ffffff?text=PN" alt="Dr. Prateek Nishant"><h4>Dr. Prateek Nishant</h4><span class="role">Advisory Committee<br>MBBS (Honours), MD, DNB, MBA (USA), MNAMS</span><p class="bio">Assistant Professor at IGIMS Patna, with expertise in Vitreoretina, Uvea, and a strong background in ophthalmology, management, and research.</p></div>
+                        <div class="card team-member"><img src="https://via.placeholder.com/120/0056b3/ffffff?text=AKR" alt="Dr. Amit Kumar Rai"><h4>Dr. Amit Kumar Rai</h4><span class="role">Senior Resident, Dept. of Microbiology, AIIMS Gorakhpur<br>MD Clinical Microbiology</span><p class="bio">Senior Resident in Microbiology at AIIMS Gorakhpur, with a strong commitment to resident welfare and advocacy.</p></div>
+                        <div class="card team-member"><img src="https://via.placeholder.com/120/0056b3/ffffff?text=SM" alt="Dr. Sukanya Majumder"><h4>Dr. Sukanya Majumder</h4><span class="role">Junior Resident-3, Dept. of Community and Family Medicine, AIIMS Gorakhpur</span><p class="bio">A third-year Junior Resident at AIIMS Gorakhpur, active in medical education, advocacy, and scientific events.</p></div>
+                        <div class="card team-member"><img src="https://via.placeholder.com/120/0056b3/ffffff?text=RD" alt="Dr. Raghunandan Dixit"><h4>Dr. Raghunandan Dixit</h4><span class="role">Resident Doctor, AIIMS New Delhi; Former Gen. Secretary, RDA AIIMS<br>MS, MCh (Pursuing)</span><p class="bio">Known for his leadership as General Secretary of RDA AIIMS and his commitment to resident welfare and patient care.</p></div>
+                        <div class="card team-member"><img src="https://via.placeholder.com/120/0056b3/ffffff?text=SG" alt="Dr. Sanyam Gupta"><h4>Dr. Sanyam Gupta</h4><span class="role">West Region Coordinator, NAFORD; Junior Resident (Second Year), AIIMS Nagpur</span><p class="bio">West Region Coordinator for NAFORD and a second-year Junior Resident in Radiodiagnosis at AIIMS Nagpur.</p></div>
+                        <div class="card team-member"><img src="https://via.placeholder.com/120/0056b3/ffffff?text=JT" alt="Dr. J Talukdar"><h4>Dr. J Talukdar</h4><span class="role">Vice President, NAFORD (2025); President, RDA SCTIMST; Gen. Secretary, FAIMA (2025)</span><p class="bio">Extensive training in cardiothoracic and vascular anaesthesia and a strong record of academic and professional leadership.</p></div>
+                        <div class="card team-member"><img src="https://via.placeholder.com/120/0056b3/ffffff?text=AG" alt="Dr. Aniket Gour"><h4>Dr. Aniket Gour</h4><span class="role">Junior Resident, 3rd Year, Community Medicine<br>MBBS (AIIMS Bhopal)</span><p class="bio">Junior Resident in Community Medicine at AIIMS Rishikesh. Currently Joint Secretary at NAFORD and Treasurer of RDA AIIMS Rishikesh.</p></div>
+                        <div class="card team-member"><img src="https://via.placeholder.com/120/0056b3/ffffff?text=NSG" alt="Dr. Niranjhana Sree G"><h4>Dr. Niranjhana Sree G</h4><span class="role">Senior Resident (Transfusion Medicine), JIPMER Puducherry; Co-Treasurer, NAFORD</span><p class="bio">Expertise in clinical transfusion, immunohematology, and resident welfare.</p></div>
+                        <div class="card team-member"><img src="https://via.placeholder.com/120/0056b3/ffffff?text=PG" alt="Dr. Prateek Goyal"><h4>Dr. Prateek Goyal</h4><span class="role">Postgraduate Student, Dept. of Community and Family Medicine<br>MD (AIIMS Bilaspur, Ongoing)</span><p class="bio">A postgraduate student at AIIMS Bilaspur, with experience as a Medical Officer and Junior Resident.</p></div>
                     </div>
                 </div>
             </section>
 
+            <!-- Network Section -->
             <section id="network" class="section">
-                <div class="container fade-in-element">
+                 <div class="container fade-in-element">
                     <h2>Our Network</h2>
                     <p class="section-intro">Connecting excellence across India's premier medical institutions, fostering collaboration and elevating standards of medical education.</p>
+                    <div class="stats-grid">
+                        <div class="stat-card"><i class="fa-solid fa-hospital icon"></i><div><h3>25+</h3><p>AIIMS &amp; INIs</p></div></div>
+                        <div class="stat-card"><i class="fa-solid fa-user-doctor icon"></i><div><h3>10,000+</h3><p>Resident Doctors</p></div></div>
+                        <div class="stat-card"><i class="fa-solid fa-heart-pulse icon"></i><div><h3>100M+</h3><p>Lives Touched</p></div></div>
+                    </div>
                     <div class="network-grid">
-                        <div class="network-institution"><h4>AIIMS New Delhi</h4><p>New Delhi</p><p class="tagline">Premier Medical Institute</p><div class="inst-stats"><span><i class="fa-solid fa-calendar-alt icon"></i> 1956</span><span><i class="fa-solid fa-users icon"></i> 2,500+</span><span><i class="fa-solid fa-star icon"></i> 42 Specialties</span></div></div>
-                        <div class="network-institution"><h4>AIIMS Bhubaneswar</h4><p>Odisha</p><p class="tagline">Eastern India Hub</p><div class="inst-stats"><span><i class="fa-solid fa-calendar-alt icon"></i> 2012</span><span><i class="fa-solid fa-users icon"></i> 800+</span><span><i class="fa-solid fa-star icon"></i> 28 Specialties</span></div></div>
-                        <div class="network-institution"><h4>AIIMS Jodhpur</h4><p>Rajasthan</p><p class="tagline">Desert Medicine Excellence</p><div class="inst-stats"><span><i class="fa-solid fa-calendar-alt icon"></i> 2012</span><span><i class="fa-solid fa-users icon"></i> 750+</span><span><i class="fa-solid fa-star icon"></i> 26 Specialties</span></div></div>
-                        <div class="network-institution"><h4>AIIMS Rishikesh</h4><p>Uttarakhand</p><p class="tagline">Himalayan Healthcare</p><div class="inst-stats"><span><i class="fa-solid fa-calendar-alt icon"></i> 2012</span><span><i class="fa-solid fa-users icon"></i> 700+</span><span><i class="fa-solid fa-star icon"></i> 24 Specialties</span></div></div>
-                        <div class="network-institution"><h4>JIPMER Puducherry</h4><p>Puducherry</p><p class="tagline">Historic Excellence</p><div class="inst-stats"><span><i class="fa-solid fa-calendar-alt icon"></i> 1823</span><span><i class="fa-solid fa-users icon"></i> 1,200+</span><span><i class="fa-solid fa-star icon"></i> 35 Specialties</span></div></div>
-                        <div class="network-institution"><h4>NIMHANS Bangalore</h4><p>Karnataka</p><p class="tagline">Mental Health Pioneer</p><div class="inst-stats"><span><i class="fa-solid fa-calendar-alt icon"></i> 1925</span><span><i class="fa-solid fa-users icon"></i> 400+</span><span><i class="fa-solid fa-star icon"></i> 15 Specialties</span></div></div>
+                        <div class="card network-institution"><h4>AIIMS New Delhi</h4><p>New Delhi</p><p class="tagline">Premier Medical Institute</p><div class="inst-stats"><span><i class="fa-solid fa-calendar-alt icon"></i> 1956</span><span><i class="fa-solid fa-users icon"></i> 2,500+</span></div></div>
+                        <div class="card network-institution"><h4>AIIMS Bhubaneswar</h4><p>Odisha</p><p class="tagline">Eastern India Hub</p><div class="inst-stats"><span><i class="fa-solid fa-calendar-alt icon"></i> 2012</span><span><i class="fa-solid fa-users icon"></i> 800+</span></div></div>
+                        <div class="card network-institution"><h4>JIPMER Puducherry</h4><p>Puducherry</p><p class="tagline">Historic Excellence</p><div class="inst-stats"><span><i class="fa-solid fa-calendar-alt icon"></i> 1823</span><span><i class="fa-solid fa-users icon"></i> 1,200+</span></div></div>
                     </div>
                 </div>
             </section>
-
+            
+            <!-- Resident Hub Section -->
             <section id="resident-hub" class="section">
                 <div class="container fade-in-element">
                     <h2>Resident Doctors' Hub</h2>
-                    <p class="section-intro">Your comprehensive resource center for professional development, mentorship, and career advancement in medical excellence.</p>
-                    <div class="hub-grid">
-                        <div class="about-card">
-                            <h3>Empowering Your Medical Journey</h3>
-                            <p>Access curated resources, connect with mentors, and advance your career with our comprehensive support system designed specifically for resident doctors.</p>
-                            <h4>Collaborative Learning</h4>
-                            <p>Growing together through shared knowledge and experiences.</p>
-                        </div>
-                        <div class="hub-image-container">
-                            <img src="https://images.unsplash.com/photo-1532618793091-ec5fe9635fbd?q=80&w=2070&auto=format&fit=crop" alt="Residents collaborating in study room" class="hub-image">
+                    <p class="section-intro">Your comprehensive resource center for professional development, mentorship, and career advancement.</p>
+                    <div id="hub-content-unlocked" class="hub-content-unlocked">
+                        <h3>Welcome, Registered Member!</h3>
+                        <p>Here you can access exclusive resources, including previous year question papers and essential medical books.</p>
+                        <div class="resource-grid">
+                            <a href="YOUR_GOOGLE_DRIVE_LINK_FOR_PAPERS" target="_blank" class="card resource-card">
+                                <div class="icon"><i class="fas fa-file-alt"></i></div>
+                                <h4>Question Papers</h4>
+                                <p>Access our library of papers from previous years to aid in your exam preparation.</p>
+                            </a>
+                            <a href="YOUR_GOOGLE_DRIVE_LINK_FOR_BOOKS" target="_blank" class="card resource-card">
+                                <div class="icon"><i class="fas fa-book-open"></i></div>
+                                <h4>Book Library</h4>
+                                <p>A curated collection of important textbooks and reference materials.</p>
+                            </a>
                         </div>
                     </div>
-                    <h3 style="text-align: center; margin-top: 60px;">Success Stories</h3>
-                    <div class="success-stories-grid">
-                        <div class="story-card"><h4>Dr. Priya Sharma<br><small>Cardiology, AIIMS Delhi</small></h4><p class="quote">"The mentorship program connected me with leading cardiologists who guided my research journey."</p><p class="achievement">Achievement: Published in NEJM</p></div>
-                        <div class="story-card"><h4>Dr. Raj Patel<br><small>Neurosurgery, AIIMS Bhubaneswar</small></h4><p class="quote">"NAFORD's fellowship opportunities opened doors to international training programs."</p><p class="achievement">Achievement: Fellowship at Mayo Clinic</p></div>
-                        <div class="story-card"><h4>Dr. Meera Nair<br><small>Pediatrics, JIPMER</small></h4><p class="quote">"The professional development resources helped me excel in my specialty examinations."</p><p class="achievement">Achievement: Gold Medalist</p></div>
+                    <div id="hub-content-lock" class="hub-content-lock">
+                        <div class="icon"><i class="fas fa-lock"></i></div>
+                        <h3>Exclusive Content for Members</h3>
+                        <p>This hub contains valuable resources like question papers and books, available only to registered members of NAFORD.</p>
+                        <a href="#register" style="display:inline-block; margin-top: 20px; padding: 12px 25px; max-width: 300px;" class="form-submit-btn">Register Now to Gain Access</a>
                     </div>
+                </div>
+            </section>
+
+            <!-- News & Events Section -->
+            <section id="news" class="section">
+                <div class="container fade-in-element">
+                    <h2>News & Upcoming Events</h2>
+                    <p class="section-intro">Stay updated with the latest happenings, announcements, and scheduled events from NAFORD and our network.</p>
+                    <div class="grid-3">
+                        <div class="card post-card">
+                            <h4>Annual NAFORD Conference 2025</h4>
+                            <p class="post-meta"><strong>Date:</strong> August 15, 2025 | <strong>Location:</strong> AIIMS New Delhi</p>
+                            <p class="post-excerpt">Join us for our annual conference featuring keynote speakers, research presentations, and networking opportunities.</p>
+                            <a href="#">Learn More &rarr;</a>
+                        </div>
+                        <div class="card post-card">
+                            <h4>Webinar: AI in Modern Medicine</h4>
+                            <p class="post-meta"><strong>Date:</strong> July 22, 2025 | <strong>Online</strong></p>
+                            <p class="post-excerpt">An exclusive online session with experts discussing the impact and future of Artificial Intelligence in healthcare.</p>
+                             <a href="#">Register Here &rarr;</a>
+                        </div>
+                        <div class="card post-card">
+                             <h4>Call for Research Submissions</h4>
+                            <p class="post-meta"><strong>Deadline:</strong> July 30, 2025</p>
+                            <p class="post-excerpt">We are now accepting submissions for the upcoming NAFORD Medical Journal. Share your groundbreaking research with the community.</p>
+                             <a href="#">Submission Guidelines &rarr;</a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Blog Section -->
+            <section id="blog" class="section">
+                 <div class="container fade-in-element">
+                    <h2>From the Blog</h2>
+                    <p class="section-intro">Explore insightful articles, scientific papers, and case discussions from our community of resident doctors.</p>
+                    <div class="grid-3">
+                        <div class="card post-card">
+                            <h4>Case Study: A Rare Neurological Presentation</h4>
+                            <p class="post-meta">By Dr. Priya Sharma | June 10, 2025</p>
+                            <p class="post-excerpt">An in-depth look at the diagnosis and management of a challenging neurological case at AIIMS Jodhpur...</p>
+                            <a href="#">Read Full Case &rarr;</a>
+                        </div>
+                        <div class="card post-card">
+                             <h4>Navigating the Demands of Residency</h4>
+                            <p class="post-meta">By Dr. Raj Patel | June 05, 2025</p>
+                            <p class="post-excerpt">Tips and strategies for maintaining well-being and excelling academically and professionally during your residency...</p>
+                             <a href="#">Continue Reading &rarr;</a>
+                        </div>
+                        <div class="card post-card">
+                             <h4>The Future of Telemedicine in India</h4>
+                            <p class="post-meta">By NAFORD Editorial Team | May 28, 2025</p>
+                            <p class="post-excerpt">A comprehensive analysis of the post-pandemic landscape for telemedicine and its role in the Indian healthcare system...</p>
+                             <a href="#">Explore the Analysis &rarr;</a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Registration Section -->
+            <section id="register" class="section">
+                <div class="container fade-in-element">
+                    <h2>Become a Member</h2>
+                    <p class="section-intro">Join the NAFORD community to connect with peers, access exclusive resources, and be a part of a national network of resident doctors.</p>
+                    
+                    <form id="registrationForm" class="registration-form">
+                        <div class="form-group">
+                            <label for="name">Full Name</label>
+                            <input type="text" id="name" name="Name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">Phone Number</label>
+                            <input type="tel" id="phone" name="Phone" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="ini">INI (Institute of National Importance)</label>
+                            <input type="text" id="ini" name="INI" placeholder="e.g., AIIMS Bhopal" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="year">Year of Joining</label>
+                            <input type="number" id="year" name="Year" placeholder="e.g., 2023" required>
+                        </div>
+                         <div class="form-group">
+                            <label for="stream">Stream</label>
+                            <input type="text" id="stream" name="Stream" placeholder="e.g., General Medicine" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="degree">Degree</label>
+                            <select id="degree" name="Degree" required>
+                                <option value="" disabled selected>Select your degree</option>
+                                <option value="MD">MD</option>
+                                <option value="MS">MS</option>
+                                <option value="DM">DM</option>
+                                <option value="M.Ch">M.Ch</option>
+                                <option value="Fellowship">Fellowship</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="form-submit-btn">Submit Registration</button>
+                    </form>
                 </div>
             </section>
         </div>
@@ -309,11 +423,31 @@
 
     <footer>
         <div class="container">
-            <h4 style="color: var(--text-primary);">National Federation of Resident Doctors Association</h4>
-            <p>Empowering resident doctors across AIIMS and INIs for excellence in healthcare.</p>
-            <p>&copy; 2025 NAFORD. All rights reserved.</p>
-            <div class="footer-links">
-                <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a>
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h4>About NAFORD</h4>
+                    <p>The National Federation of Resident Doctors for AIIMS and INIs is the premier voice for resident doctors, advocating for excellence in medical education and healthcare delivery.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Contact Persons</h4>
+                    <p>Dr. Devesh Dubey (President)<br><a href="tel:+918588028459">8588028459</a></p>
+                    <p>Dr. Raghunandan Dixit<br><a href="tel:+919650941820">9650941820</a></p>
+                    <p>Dr. Piyush Bharti<br><a href="tel:+918989123311">8989123311</a></p>
+                </div>
+                <div class="footer-col">
+                    <h4>Follow Us</h4>
+                    <p><a href="mailto:contact@naford.in">contact@naford.in</a></p>
+                    <div class="social-links">
+                        <a href="https://www.instagram.com/nafordaiims/" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="https://x.com/NAFORDAIIMS" target="_blank" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2025 NAFORD. All Rights Reserved.</p>
+                <div class="footer-links">
+                    <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a>
+                </div>
             </div>
         </div>
     </footer>
@@ -327,10 +461,43 @@
 
             const hamburger = document.querySelector('.hamburger'), navLinks = document.querySelector('.nav-links');
             hamburger.addEventListener('click', () => navLinks.classList.toggle('active'));
-            document.querySelectorAll('.nav-links li').forEach(l => l.addEventListener('click', () => navLinks.classList.remove('active')));
+            document.querySelectorAll('.nav-links a').forEach(l => l.addEventListener('click', () => navLinks.classList.remove('active')));
 
             const observer = new IntersectionObserver(e => e.forEach(i => { if (i.isIntersecting) i.target.classList.add('is-visible') }), { threshold: 0.1 });
             document.querySelectorAll('.fade-in-element').forEach(e => observer.observe(e));
+            
+            // --- NEW LOGIC FOR DYNAMIC SECTIONS ---
+
+            // 1. Registration Form Submission
+            const registrationForm = document.getElementById('registrationForm');
+            registrationForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const scriptURL = 'YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL'; // <-- IMPORTANT: REPLACE THIS
+                const formData = new FormData(registrationForm);
+
+                fetch(scriptURL, { method: 'POST', body: formData})
+                    .then(response => {
+                        alert('Thank you! Your registration has been submitted successfully.');
+                        registrationForm.reset();
+                    })
+                    .catch(error => {
+                        console.error('Error!', error.message);
+                        alert('An error occurred. Please try again.');
+                    });
+            });
+
+            // 2. Mock Logic for Members-Only Content
+            const isUserLoggedIn = false; // <-- CHANGE THIS TO `true` TO TEST THE PROTECTED VIEW
+            const hubUnlocked = document.getElementById('hub-content-unlocked');
+            const hubLocked = document.getElementById('hub-content-lock');
+
+            if (isUserLoggedIn) {
+                hubUnlocked.style.display = 'block';
+                hubLocked.style.display = 'none';
+            } else {
+                hubUnlocked.style.display = 'none';
+                hubLocked.style.display = 'block';
+            }
         });
     </script>
 </body>

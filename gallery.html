@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gallery - NAFORD</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <style>
+        /* --- Refined Color Palette & Theming --- */
+        :root {
+            --accent-primary: #0056b3;
+            --accent-secondary: #007bff;
+            --text-primary: #1a202c;
+            --text-secondary: #4a5568;
+            --bg-backdrop: #f0f2f5; 
+            --bg-primary: #ffffff;
+            --bg-secondary: #f8fafc;
+            --border-color: #e2e8f0;
+            --card-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
+            --header-bg: rgba(255, 255, 255, 0.8);
+            --glow-color: rgba(0, 123, 255, 0.1);
+        }
+
+        [data-theme="dark"] {
+            --accent-primary: #60a5fa;
+            --accent-secondary: #3b82f6;
+            --text-primary: #e2e8f0;
+            --text-secondary: #94a3b8;
+            --bg-backdrop: #020617;
+            --bg-primary: #0f172a;
+            --bg-secondary: #1e293b;
+            --border-color: #334155;
+            --card-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.2), 0 4px 6px -4px rgba(0, 0, 0, 0.2);
+            --header-bg: rgba(15, 23, 42, 0.8);
+            --glow-color: rgba(96, 165, 250, 0.15);
+        }
+        
+        /* --- Animations --- */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes backgroundZoom {
+            from { transform: scale(1.1); }
+            to { transform: scale(1); }
+        }
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        .animate-on-scroll.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* --- Base & Typography --- */
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--bg-backdrop);
+            color: var(--text-primary);
+            line-height: 1.7;
+            transition: background-color 0.4s, color 0.4s;
+        }
+        .container { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
+        h1, h2, h3, h4 { line-height: 1.3; font-weight: 700; color: var(--text-primary); }
+        h1 { font-size: clamp(2.5rem, 5vw, 3.8rem); }
+        h2 { font-size: clamp(2rem, 4vw, 2.75rem); color: var(--accent-primary); text-align: center; margin-bottom: 50px; }
+        h3 { font-size: 1.75rem; margin-bottom: 20px; }
+        h4 { font-size: 1.25rem; color: var(--accent-primary); margin-bottom: 8px; }
+        p { margin-bottom: 1rem; color: var(--text-secondary); }
+        .section { padding: 80px 50px; overflow: hidden; border-bottom: 1px solid var(--border-color); }
+        .section:last-of-type { border-bottom: none; }
+        .section-intro { text-align: center; max-width: 700px; margin: -30px auto 50px auto; color: var(--text-secondary); }
+        
+        /* --- Main Page Container --- */
+        .main-content-wrapper {
+            max-width: 1200px;
+            margin: 30px auto;
+            background-color: var(--bg-primary);
+            border-radius: 16px;
+            box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1), 0 8px 10px -6px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        
+        /* --- Header & Navigation --- */
+        header {
+            position: sticky; top: 0; width: 100%; z-index: 1000; padding: 12px 0;
+            background-color: var(--header-bg); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+            border-bottom: 1px solid transparent; 
+            transition: padding 0.3s ease, background-color 0.3s, border-color 0.3s, box-shadow 0.3s;
+        }
+        header.scrolled {
+            border-bottom: 1px solid var(--border-color);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        .navbar { display: flex; justify-content: space-between; align-items: center; max-width: 1200px; margin: 0 auto; padding: 0 20px;}
+        .logo-area { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+        .logo-image { height: 50px; width: 50px; border-radius: 50%; object-fit: cover; border: 2px solid var(--border-color); transition: transform 0.6s cubic-bezier(0.68, -0.55, 0.27, 1.55); }
+        .logo-area:hover .logo-image { transform: rotate(360deg); }
+        .logo-main-text { font-size: 1.6em; font-weight: 700; color: var(--accent-primary); line-height: 1; }
+        .logo-tagline { font-size: 0.8em; color: var(--text-secondary); font-weight: 600; line-height: 1; }
+        .nav-links { display: flex; list-style: none; gap: 25px; }
+        .nav-links a { text-decoration: none; color: var(--text-primary); font-weight: 600; transition: color 0.3s; position: relative; padding: 5px 0; }
+        .nav-links a::after { content: ''; position: absolute; bottom: 0; left: 0; width: 0; height: 2px; background-color: var(--accent-primary); transition: width 0.3s ease; }
+        .nav-links a:hover { color: var(--accent-primary); }
+        .nav-links a:hover::after { width: 100%; }
+        .nav-right { display: flex; align-items: center; gap: 20px; }
+        #theme-toggle { background: none; border: none; color: var(--text-secondary); font-size: 1.5rem; cursor: pointer; transition: color 0.3s, transform 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55); }
+        #theme-toggle:hover { color: var(--accent-primary); }
+        .hamburger { display: none; font-size: 1.8rem; cursor: pointer; z-index: 1002; transition: transform 0.3s ease; }
+
+        /* --- General Card & Grid Styles --- */
+        .card { 
+            background: var(--bg-secondary); padding: 25px; border-radius: 12px; 
+            border: 1px solid var(--border-color); box-shadow: var(--card-shadow); 
+            transition: transform 0.3s ease, box-shadow 0.3s ease; 
+        }
+        .card:hover { 
+            transform: translateY(-8px); 
+            box-shadow: 0 10px 20px -5px var(--glow-color), 0 4px 6px -2px rgba(0,0,0,0.05); 
+        }
+        .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
+        .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 30px; justify-content: center;}
+
+        /* --- Footer --- */
+        footer { background-color: var(--bg-secondary); padding: 60px 0 30px 0; border-top: 1px solid var(--border-color); }
+        .footer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 40px; margin-bottom: 40px; }
+        .footer-col a:hover, .social-links a:hover { color: var(--accent-primary) !important; transform: translateY(-2px); }
+        .footer-col a, .social-links a { transition: color 0.3s, transform 0.3s; }
+        .footer-bottom { text-align: center; border-top: 1px solid var(--border-color); padding-top: 30px; font-size: 0.9em; }
+        
+        /* --- Responsive --- */
+        @media (max-width: 992px) { 
+            .section { padding: 40px 30px; } 
+        }
+
+        @media (max-width: 768px) {
+            .main-content-wrapper { margin: 0; border-radius: 0; box-shadow: none; }
+            .section { padding: 50px 20px; }
+            .container { padding: 0; }
+            h2 { font-size: 1.8rem; margin-bottom: 30px; }
+            h3 { font-size: 1.5rem; }
+            .grid-2, .grid-3 { grid-template-columns: 1fr; }
+            .mobile-nav-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 998; opacity: 0; visibility: hidden; transition: opacity 0.4s, visibility 0.4s; }
+            .mobile-nav-overlay.active { opacity: 1; visibility: visible; }
+            .nav-links { position: fixed; top: 0; right: -100%; width: 80%; max-width: 300px; height: 100vh; flex-direction: column; align-items: center; justify-content: center; gap: 30px; background-color: var(--bg-primary); box-shadow: -5px 0 15px rgba(0,0,0,0.1); transition: right 0.4s cubic-bezier(0.77, 0, 0.175, 1); z-index: 999; }
+            .nav-links.active { right: 0; } 
+            .nav-links a { font-size: 1.3rem; }
+            .hamburger { display: block; }
+            .footer-grid { text-align: center; } 
+            .social-links { justify-content: center; }
+        }
+
+        /* --- NEW STYLES FOR GALLERY PAGE --- */
+        .gallery-item {
+            padding: 0; /* Override .card padding */
+            overflow: hidden; /* Ensures the image corners are rounded with the card */
+            aspect-ratio: 1 / 1; /* Makes all gallery items square */
+            text-decoration: none; /* Removes underline from link */
+            display: block;
+        }
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Ensures image fills the container without distortion */
+            display: block; /* Removes any extra space below the image */
+            transition: transform 0.4s ease, filter 0.4s ease;
+        }
+        .gallery-item:hover img {
+            transform: scale(1.05);
+            filter: brightness(1.1);
+        }
+        .gallery-subtitle {
+            text-align: center;
+            font-size: 1.5rem;
+            margin-top: 60px;
+            margin-bottom: 40px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+        .section.gallery-page {
+            padding-top: 60px;
+        }
+        
+    </style>
+</head>
+<body>
+    <div class="mobile-nav-overlay"></div>
+    <header>
+        <div class="navbar">
+            <a href="index.html" class="logo-area"> <!-- Assuming your main page is index.html -->
+                <img src="https://naford.netlify.app/naford_logo.jpg" alt="NAFORD Logo" class="logo-image">
+                <div>
+                    <div class="logo-main-text">NAFORD</div>
+                    <div class="logo-tagline">AIIMS &amp; INIs</div>
+                </div>
+            </a>
+            <div class="nav-right">
+                <nav>
+                    <ul class="nav-links">
+                        <!-- Update links to point to sections in your main index.html file -->
+                        <li><a href="index.html#home">Home</a></li>
+                        <li><a href="index.html#about-us">About Us</a></li>
+                        <li><a href="index.html#team">Team</a></li>
+                        <li><a href="gallery.html">Gallery</a></li> <!-- Link to this page -->
+                        <li><a href="index.html#register">Register</a></li>
+                    </ul>
+                </nav>
+                <button id="theme-toggle" aria-label="Toggle dark mode"><i class="fa-solid fa-moon"></i></button>
+                <div class="hamburger"><i class="fa-solid fa-bars"></i></div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <div class="main-content-wrapper">
+            <section id="gallery" class="section gallery-page">
+                <div class="container">
+                    <h2 class="animate-on-scroll">Our Gallery</h2>
+                    <p class="section-intro animate-on-scroll" style="transition-delay: 0.1s;">A visual journey through our activities, achievements, academic pursuits, and community engagement across India's premier medical institutions.</p>
+                    
+                    <!-- Academic Corner -->
+                    <h3 class="gallery-subtitle animate-on-scroll" style="transition-delay: 0.2s;">Academic Corner</h3>
+                    <div class="grid-3">
+                        <a href="https://i.postimg.cc/k47tXJvH/IMG-20241121-WA0001.jpg" target="_blank" class="card gallery-item animate-on-scroll" style="transition-delay: 0.3s;"><img src="https://i.postimg.cc/k47tXJvH/IMG-20241121-WA0001.jpg" alt="Academic Event 1"></a>
+                        <a href="https://i.postimg.cc/Y9D5k0G0/IMG-20241121-WA0002.jpg" target="_blank" class="card gallery-item animate-on-scroll" style="transition-delay: 0.4s;"><img src="https://i.postimg.cc/Y9D5k0G0/IMG-20241121-WA0002.jpg" alt="Academic Event 2"></a>
+                        <a href="https://i.postimg.cc/J0vH4H08/IMG-20241121-WA0003.jpg" target="_blank" class="card gallery-item animate-on-scroll" style="transition-delay: 0.5s;"><img src="https://i.postimg.cc/J0vH4H08/IMG-20241121-WA0003.jpg" alt="Academic Event 3"></a>
+                    </div>
+
+                    <!-- Welfare Corner -->
+                    <h3 class="gallery-subtitle animate-on-scroll">Welfare Corner</h3>
+                    <div class="grid-3">
+                        <a href="https://i.postimg.cc/PqK1x0wQ/IMG-20241121-WA0006.jpg" target="_blank" class="card gallery-item animate-on-scroll" style="transition-delay: 0.1s;"><img src="https://i.postimg.cc/PqK1x0wQ/IMG-20241121-WA0006.jpg" alt="Welfare Event 1"></a>
+                        <a href="https://i.postimg.cc/fLs6qX1G/IMG-20241121-WA0007.jpg" target="_blank" class="card gallery-item animate-on-scroll" style="transition-delay: 0.2s;"><img src="https://i.postimg.cc/fLs6qX1G/IMG-20241121-WA0007.jpg" alt="Welfare Event 2"></a>
+                        <a href="https://i.postimg.cc/P5GfSgW2/IMG-20241121-WA0008.jpg" target="_blank" class="card gallery-item animate-on-scroll" style="transition-delay: 0.3s;"><img src="https://i.postimg.cc/P5GfSgW2/IMG-20241121-WA0008.jpg" alt="Welfare Event 3"></a>
+                    </div>
+                    
+                    <!-- Creative Corner -->
+                    <h3 class="gallery-subtitle animate-on-scroll">Creative Corner</h3>
+                    <div class="grid-3">
+                        <a href="https://i.postimg.cc/BvxC1dFp/IMG-20241121-WA0010.jpg" target="_blank" class="card gallery-item animate-on-scroll" style="transition-delay: 0.1s;"><img src="https://i.postimg.cc/BvxC1dFp/IMG-20241121-WA0010.jpg" alt="Creative Event 1"></a>
+                        <a href="https://i.postimg.cc/hGv5pY0y/IMG-20241121-WA0011.jpg" target="_blank" class="card gallery-item animate-on-scroll" style="transition-delay: 0.2s;"><img src="https://i.postimg.cc/hGv5pY0y/IMG-20241121-WA0011.jpg" alt="Creative Event 2"></a>
+                        <a href="https://i.postimg.cc/tJnNf4pP/IMG-20241121-WA0012.jpg" target="_blank" class="card gallery-item animate-on-scroll" style="transition-delay: 0.3s;"><img src="https://i.postimg.cc/tJnNf4pP/IMG-20241121-WA0012.jpg" alt="Creative Event 3"></a>
+                    </div>
+
+                    <!-- Activism Corner -->
+                    <h3 class="gallery-subtitle animate-on-scroll">Activism Corner</h3>
+                    <div class="grid-3">
+                        <a href="https://i.postimg.cc/1359vC0S/IMG-20241121-WA0013.jpg" target="_blank" class="card gallery-item animate-on-scroll" style="transition-delay: 0.1s;"><img src="https://i.postimg.cc/1359vC0S/IMG-20241121-WA0013.jpg" alt="Activism Event 1"></a>
+                        <a href="https://i.postimg.cc/NjjcWj67/IMG-20241121-WA0014.jpg" target="_blank" class="card gallery-item animate-on-scroll" style="transition-delay: 0.2s;"><img src="https://i.postimg.cc/NjjcWj67/IMG-20241121-WA0014.jpg" alt="Activism Event 2"></a>
+                    </div>
+                    
+                    <!-- Dialogue Exchange -->
+                    <h3 class="gallery-subtitle animate-on-scroll">Dialogue Exchange</h3>
+                    <div class="grid-3">
+                        <a href="https://i.postimg.cc/Mf2LcM14/IMG-20241121-WA0004.jpg" target="_blank" class="card gallery-item animate-on-scroll" style="transition-delay: 0.1s;"><img src="https://i.postimg.cc/Mf2LcM14/IMG-20241121-WA0004.jpg" alt="Dialogue Exchange Event"></a>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer class="animate-on-scroll">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h4>About NAFORD</h4>
+                    <p>The National Federation of Resident Doctors for AIIMS and INIs is the premier voice for resident doctors, advocating for excellence in medical education and healthcare delivery.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Contact Persons</h4>
+                    <p>Dr. Devesh Dubey (President)<br><a href="tel:+918588028459">8588028459</a></p>
+                    <p>Dr. Raghunandan Dixit<br><a href="tel:+919650941820">9650941820</a></p>
+                    <p>Dr. Piyush Bharti<br><a href="tel:+918989123311">8989123311</a></p>
+                </div>
+                <div class="footer-col">
+                    <h4>Follow Us</h4>
+                    <p><a href="mailto:contact@naford.in">contact@naford.in</a></p>
+                    <div class="social-links">
+                        <a href="https://www.instagram.com/nafordaiims/" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="https://x.com/NAFORDAIIMS" target="_blank" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2025 NAFORD. All Rights Reserved.</p>
+                <div class="footer-links">
+                    <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const header = document.querySelector('header');
+        const themeToggle = document.getElementById('theme-toggle');
+        const themeIcon = themeToggle.querySelector('i');
+        const hamburger = document.querySelector('.hamburger');
+        const hamburgerIcon = hamburger.querySelector('i');
+        const navLinks = document.querySelector('.nav-links');
+        const mobileOverlay = document.querySelector('.mobile-nav-overlay');
+
+        // --- 1. Theme Toggler ---
+        const applyTheme = (theme) => {
+            document.documentElement.setAttribute('data-theme', theme);
+            localStorage.setItem('theme', theme);
+            themeIcon.className = `fa-solid ${theme === 'dark' ? 'fa-sun' : 'fa-moon'}`;
+        };
+        const currentTheme = localStorage.getItem('theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        applyTheme(currentTheme);
+        themeToggle.addEventListener('click', () => {
+            const newTheme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+            applyTheme(newTheme);
+            themeToggle.style.transform = 'rotate(360deg)';
+            setTimeout(() => themeToggle.style.transform = 'rotate(0deg)', 500);
+        });
+
+        // --- 2. Mobile Navigation ---
+        const toggleNav = () => {
+            navLinks.classList.toggle('active');
+            mobileOverlay.classList.toggle('active');
+            hamburgerIcon.className = navLinks.classList.contains('active') ? 'fa-solid fa-xmark' : 'fa-solid fa-bars';
+            document.body.style.overflow = navLinks.classList.contains('active') ? 'hidden' : '';
+        };
+        hamburger.addEventListener('click', toggleNav);
+        mobileOverlay.addEventListener('click', toggleNav);
+        document.querySelectorAll('.nav-links a').forEach(link => link.addEventListener('click', () => {
+            if (navLinks.classList.contains('active')) toggleNav();
+        }));
+
+        // --- 3. Header Scrolled State ---
+        window.addEventListener('scroll', () => {
+            header.classList.toggle('scrolled', window.scrollY > 50);
+        });
+
+        // --- 4. Scroll Animations (Intersection Observer) ---
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.animate-on-scroll').forEach(el => observer.observe(el));
+    });
+    </script>
+</body>
+</html>
